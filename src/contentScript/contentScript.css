@@ -1,0 +1,122 @@
+*{
+  z-index: 1000000;
+  
+
+}
+
+body {
+  /* width: 600px; */
+  /* top:10%; */
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+  color: rgb(0, 0, 0);
+  line-height: 1.6;
+  /* z-index: 9999999999 !important;  */
+  /* position: absolute; */
+}
+/* #main-container{
+  z-index: 1000;
+} */
+
+.container {
+    max-width: 768px;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    flex-basis: 40%;
+    position: absolute;
+    right: 1.5%;
+    top: 25%;
+    height: 126px;
+    background-color: gray;
+    /* z-index: 9999999999 !important;  */
+    /* position: absolute; */
+}
+
+header {
+    height: 70px;
+    width: 768px;
+    display: flex;
+    /* text-align: center; */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.card {
+  background-color: #F0EFE0;
+  color:  #0E1318;
+  border-radius: 15px;
+  padding: 12px 50px;
+  margin: 20px 0;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical; */
+}
+
+
+.btn {
+  margin: 20px;
+  color: #0E1318;
+  font-weight: bold;
+  border: 0;
+  border-radius: 8px;
+  width: 100px;
+  height: 40px;
+  position: relative;
+  left:40%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-primary {
+  background-color: #FFD700;
+}
+
+.btn:hover {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.notes-btn{
+  position: absolute;
+  left:85%;
+  margin: 35px 35px 10px;
+  
+
+}
+
+.close,
+.edit {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.edit {
+  right: 40px;
+}
+
+.container .ql-toolbar{
+  /* border-radius: 15px; */
+
+  text-align: center;
+  border: none;
+}
+
+.container .ql-editor {
+  /* border-radius: 15px; */
+
+  padding: 20px 15px;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
