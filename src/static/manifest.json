@@ -13,15 +13,27 @@
     "default_title": "React Extension",
     "default_icon": "icon.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage",
+    "*://*.whatsapp.com/*",
+        "tabs",
+        "background",
+        "notifications",
+        "webRequest",
+        "webRequestBlocking"
+  ],
+
   "options_page": "options.html",
+
   "background": {
     "service_worker": "background.js"
   },
+
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["*://*.whatsapp.com/*"],
+      "run_at": "document_idle",
       "js": ["contentScript.js"]
+      
     }
   ]
 }

@@ -21,46 +21,84 @@ import "./contentScript.css"
 // }
 const App: React.FC<{}> = () => {
     const [flag, setFlag] = useState(false);
+    const [rendered, setRendered] = useState(false);
+    var debug = false;
+    var safetyDelayShort = 300;
+    // const RenderNotes = () => {
+    //     setRendered(!rendered)
+    // }
+    
+    function onMainUiReady()
+    {
+        try
+        {
+            // First check if the main UI is already ready, just in case
+            if (document.querySelector("#app .two") != undefined)
+            {
+                if (debug) console.info("WAT: Found main UI, will notify main UI ready event directly");
+                document.querySelector("#app .two").appendChild(root)
+                console.log(root);
+                // setTimeout(function () { onMainUiReady(); }, safetyDelayShort);
+            }
+            else
+            {
+                if (debug) console.info("WAT: Setting up mutation observer for main UI ready event...");
+
+                var appElem = document.querySelector("#app");
+                if (appElem != undefined)
+                {
+                    var mutationObserver = new MutationObserver(function (mutations)
+                    {
+                        if (debug) console.info("WAT: Mutation observerd, will search main UI");
+
+                        // Check if main UI is now ready (new child div with class "two")
+                        if (document.querySelector("#app .two") != undefined)
+                        {
+                            if (debug) console.info("WAT: Found main UI, will notify main UI ready event");
+
+                            mutationObserver.disconnect();
+                            setTimeout(function () { onMainUiReady(); }, safetyDelayShort);
+                        }
+                    });
+                    mutationObserver.observe(appElem, { childList: true, subtree: true });
+                }
+            }
+        }
+        catch (err)
+        {
+            console.error("WAT: Exception while setting up mutation observer for main UI ready event");
+            console.error(err);
+        }
+
+
+    }
+    window.addEventListener ("load", onMainUiReady, false);
     return (
 
-        <>
-            <button onClick={() => setFlag(!flag)} className= "btn btn-primary notes-btn"> Notes </button>
-            {flag && (
-                <NotesProvider>
-                    {/* <Header/> */}
-                    <div className='container'>
-                        <TextEditor />
-                        <NotesList/>
-                    </div>
-                </NotesProvider>
-            )}
-        </>
-    )
+            <>  
+                {/* <Header/>  */}
+                <button onClick={() => setFlag(!flag)} className= "btn btn-primary notes-btn"> Notes 
+                </button>
+            
+
+                {flag && (
+                    <NotesProvider>
+                        <div className="container">
+                            <div className="editor">
+                                <TextEditor />
+                            </div>
+                            <NotesList/>
+                        </div>
+                    </NotesProvider>
+                )}
+            </>
+        )
+    
+    
 }
-
 const root =  document.createElement('div')
+root.id = "notes-ui"
+// console.log(root);
 
-// var iframe = document.createElement("iframe");
-// var inject = document.querySelectorAll("#app");
-// console.log("injection",inject);
-// inject.forEach(function(item) {
-//   item.appendChild(root);
-// })
-
-
-
-// document.getElementById('app').appendChild(root)
-// document.getElementsByClassName('_1XkO3').appendChild(root)
-document.body.appendChild(root)
-// $("two").append(root);
-
-// var detailsNews = document.querySelectorAll('div[class$="_1XkO3"]');
-
-// detailsNews.forEach(function(item) {
-//   var div = document.createElement('div');
-//   div.className = 'append_test';
-//   div.textContent = "appended div to " + item.classList;
-//   item.appendChild(div);
-// })
 
 ReactDOM.render(<App/>, root) 

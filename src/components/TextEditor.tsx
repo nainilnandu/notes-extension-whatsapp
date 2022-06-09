@@ -84,7 +84,7 @@ function TextEditor() {
 
     return (
         <>
-            <div className="text-container" ref={quillRef}>
+            <div ref={quillRef}>
             </div>
             <form onSubmit={handleSubmit}>
                 <Button type="submit">{buttontext}</Button>

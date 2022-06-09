@@ -8,12 +8,12 @@ function Header({text,bgColor, textColor}) {
         color: textColor,
     }
     return (
-        <header tabIndex={-1} style = {HeaderStyles} className='container'>
-            <div className='container'>
+        <div className= "top-navbar">
+            <div>
                 <h2>Notes</h2>
             </div>
                 
-        </header>
+        </div>
     )
 }
 

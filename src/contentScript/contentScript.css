@@ -1,44 +1,58 @@
 *{
   z-index: 1000000;
-  
-
 }
 
 body {
-  /* width: 600px; */
-  /* top:10%; */
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #fff;
   color: rgb(0, 0, 0);
   line-height: 1.6;
-  /* z-index: 9999999999 !important;  */
-  /* position: absolute; */
+
 }
-/* #main-container{
-  z-index: 1000;
+
+#notes-ui{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+  box-sizing: border-box;
+}
+
+/* #notes-ui * {
+  position: relative;
 } */
 
-.container {
-    max-width: 768px;
-    margin: auto;
-    padding: 0 20px;
-    display: flex;
-    flex-basis: 40%;
-    position: absolute;
-    right: 1.5%;
-    top: 25%;
-    height: 126px;
-    background-color: gray;
-    /* z-index: 9999999999 !important;  */
-    /* position: absolute; */
+#notes-ui .top-navbar{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e6;
+  height: 48px;
+  max-height: 48px;
+  z-index: 250;
 }
+
+
+.container {
+  position: absolute;
+  left: 78.5%;
+  padding: 5px;
+  background: rgb(217, 217, 217);
+  width: 21%;
+  top: 60px;
+}
+
+/* .container .open {
+  opacity: 1;
+  flex-basis: 40%;
+} */
 
 header {
     height: 70px;
-    width: 768px;
     display: flex;
-    /* text-align: center; */
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
@@ -61,6 +75,12 @@ header {
   -webkit-box-orient: vertical; */
 }
 
+.editor{
+  background-color: #c5c5c5;
+  margin: 10px;
+  border-radius: 10px;
+  /* padding: 10px; */
+}
 
 .btn {
   margin: 20px;
@@ -71,7 +91,7 @@ header {
   width: 100px;
   height: 40px;
   position: relative;
-  left:40%;
+  left:30%;
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -88,9 +108,7 @@ header {
 .notes-btn{
   position: absolute;
   left:85%;
-  margin: 35px 35px 10px;
-  
-
+  top: -10px;
 }
 
 .close,
@@ -107,16 +125,20 @@ header {
   right: 40px;
 }
 
-.container .ql-toolbar{
-  /* border-radius: 15px; */
+.ql-toolbar.ql-snow .ql-formats {
+  margin-right: 0px;
+}
 
-  text-align: center;
+.ql-container.ql-snow {
+  border:none;
+  /* border-radius: 10px; */
+}
+
+.ql-toolbar.ql-snow{
   border: none;
 }
+/* .container .ql-toolbar{
+  border: none;
+} */
 
-.container .ql-editor {
-  /* border-radius: 15px; */
 
-  padding: 20px 15px;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-}
