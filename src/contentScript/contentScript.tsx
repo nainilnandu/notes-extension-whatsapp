@@ -9,7 +9,7 @@ import TextEditor from '../components/TextEditor';
 import NotesList from '../components/NotesList';
 import { NotesProvider } from '../context/NotesContext';
 import RenderNotes from "../components/RenderNotes";
-
+import $ from 'jquery';
 import "./contentScript.css"
 
 
@@ -20,7 +20,7 @@ import "./contentScript.css"
 //     console.log(check);
 // }
 const App: React.FC<{}> = () => {
-    const [flag, setFlag] = useState(false);
+    const [notesOpen, setNotesOpen] = useState(true);
     const [rendered, setRendered] = useState(false);
     var debug = false;
     var safetyDelayShort = 300;
@@ -73,15 +73,54 @@ const App: React.FC<{}> = () => {
 
     }
     window.addEventListener ("load", onMainUiReady, false);
+
+    const changeStyleofWAUI = () =>{
+        setNotesOpen(prev => !prev)
+        // console.log(notesOpen);
+        if(!notesOpen){
+            
+            console.log(notesOpen);
+            $('#side').css(
+                'width', '80%'
+            ),
+            
+            $('._3sh5K').css(
+                'left', '-90px'
+            ),
+            $('#main').css(
+                'width', '70%'
+            )
+            $('.ldL67 .zaKsw').css(
+                'width', '70%'
+            )
+    
+        }
+        else{
+            $('#side').css(
+                'width', '100%'
+            ),
+            $('#app #main').css(
+                'width', '100%'
+            ),
+            $('._3sh5K').css(
+                'left', '0px'
+            )
+            $('.ldL67 .zaKsw').css(
+                'width', '100%'
+            ) 
+        }
+        
+    }
+   
     return (
 
             <>  
                 {/* <Header/>  */}
-                <button onClick={() => setFlag(!flag)} className= "btn btn-primary notes-btn"> Notes 
+                <button onClick={changeStyleofWAUI} className= "btn btn-primary notes-btn"> Notes 
                 </button>
-            
+                {/* <h2 className="btn btn-primary notes-btn">Notes</h2> */}
 
-                {flag && (
+                {notesOpen && (
                     <NotesProvider>
                         <div className="container">
                             <div className="editor">

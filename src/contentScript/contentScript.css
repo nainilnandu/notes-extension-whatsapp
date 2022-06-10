@@ -43,6 +43,9 @@ body {
   background: rgb(217, 217, 217);
   width: 21%;
   top: 60px;
+  height: 400px;
+  overflow-y: auto;
+
 }
 
 /* .container .open {
@@ -141,4 +144,26 @@ header {
   border: none;
 } */
 
+/* WhatsApp */
+
+._1PzAL{
+  opacity: 0 !important;
+}
+
+#side{
+  width: 80%;
+}
+
+
+#main{
+  width: 70%;
+}
+
+._3sh5K{
+  left: -90px;
+}
+
+.ldL67 .zaKsw{
+  width: 70%;
+}
 
