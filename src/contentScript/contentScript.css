@@ -38,12 +38,12 @@ body {
 
 .container {
   position: absolute;
-  left: 78.5%;
-  padding: 5px;
-  background: rgb(217, 217, 217);
-  width: 21%;
+  left: 73%;
+  padding: 15px;
+  background: rgb(255, 255, 255);
+  width: 25%;
   top: 60px;
-  height: 400px;
+  height: 700px;
   overflow-y: auto;
 
 }
@@ -66,9 +66,9 @@ header {
 .card {
   background-color: #F0EFE0;
   color:  #0E1318;
-  border-radius: 15px;
-  padding: 12px 50px;
-  margin: 20px 0;
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin: 20px 10px;
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /* overflow: hidden;
@@ -79,7 +79,7 @@ header {
 }
 
 .editor{
-  background-color: #c5c5c5;
+  background-color: #f1f1f1;
   margin: 10px;
   border-radius: 10px;
   /* padding: 10px; */
@@ -150,10 +150,9 @@ header {
   opacity: 0 !important;
 }
 
-#side{
+/* #side{
   width: 80%;
 }
-
 
 #main{
   width: 70%;
@@ -166,4 +165,4 @@ header {
 .ldL67 .zaKsw{
   width: 70%;
 }
-
+ */

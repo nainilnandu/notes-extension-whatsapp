@@ -20,7 +20,7 @@ import "./contentScript.css"
 //     console.log(check);
 // }
 const App: React.FC<{}> = () => {
-    const [notesOpen, setNotesOpen] = useState(true);
+    const [notesOpen, setNotesOpen] = useState(false);
     const [rendered, setRendered] = useState(false);
     var debug = false;
     var safetyDelayShort = 300;
