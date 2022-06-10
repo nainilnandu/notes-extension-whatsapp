@@ -109,14 +109,14 @@ const App: React.FC<{}> = () => {
 
 
     const retrievePhoneNumber = () =>{
-        var phoneNumber =document.getElementsByClassName('.AjtLy')
-        console.log(phoneNumber);
+        console.log("IN PN");
+        var phoneNumber =$('.AjtLy')[0].innerText
+        console.log("Phone", phoneNumber);
     }
 
     const notesMaker = () =>{
         changeStyleofWAUI()
         retrievePhoneNumber()
-
     }
 
     
