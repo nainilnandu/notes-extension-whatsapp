@@ -1,5 +1,5 @@
 // TODO: content script
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM  from "react-dom";
 import Card from "../components/shared/Card"
 
@@ -13,21 +13,12 @@ import $ from 'jquery';
 import "./contentScript.css"
 
 
-// var check = true
-
-// const showNotes = (event: React.MouseEvent<HTMLButtonElement>) => {
-//     check = !check
-//     console.log(check);
-// }
 const App: React.FC<{}> = () => {
     const [notesOpen, setNotesOpen] = useState(false);
     const [rendered, setRendered] = useState(false);
     var debug = false;
     var safetyDelayShort = 300;
-    // const RenderNotes = () => {
-    //     setRendered(!rendered)
-    // }
-    
+ 
     function onMainUiReady()
     {
         try
@@ -37,8 +28,6 @@ const App: React.FC<{}> = () => {
             {
                 if (debug) console.info("WAT: Found main UI, will notify main UI ready event directly");
                 document.querySelector("#app .two").appendChild(root)
-                console.log(root);
-                // setTimeout(function () { onMainUiReady(); }, safetyDelayShort);
             }
             else
             {
@@ -72,12 +61,18 @@ const App: React.FC<{}> = () => {
 
 
     }
-    window.addEventListener ("load", onMainUiReady, false);
+    window.addEventListener ("load", onMainUiReady, false)
+
+    
+    var mainChats = document.getElementById('main');
+    var rightSidePanel = $('._2J8hu')
+    console.log("Rgt panel", rightSidePanel);
+
 
     const changeStyleofWAUI = () =>{
         setNotesOpen(prev => !prev)
         // console.log(notesOpen);
-        if(!notesOpen){
+        if(!notesOpen && rightSidePanel.length ==0){
             
             console.log(notesOpen);
             $('#side').css(
@@ -111,16 +106,28 @@ const App: React.FC<{}> = () => {
         }
         
     }
-   
+
+
+    const retrievePhoneNumber = () =>{
+        var phoneNumber =document.getElementsByClassName('.AjtLy')
+        console.log(phoneNumber);
+    }
+
+    const notesMaker = () =>{
+        changeStyleofWAUI()
+        retrievePhoneNumber()
+
+    }
+
+    
     return (
 
             <>  
                 {/* <Header/>  */}
-                <button onClick={changeStyleofWAUI} className= "btn btn-primary notes-btn"> Notes 
+                <button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
                 </button>
-                {/* <h2 className="btn btn-primary notes-btn">Notes</h2> */}
 
-                {notesOpen && (
+                {notesOpen && mainChats && rightSidePanel.length ==0 &&(
                     <NotesProvider>
                         <div className="container">
                             <div className="editor">
@@ -130,6 +137,10 @@ const App: React.FC<{}> = () => {
                         </div>
                     </NotesProvider>
                 )}
+
+                {notesOpen && mainChats == undefined && (<div className="container">
+                    <h2>Please select a chat!!</h2>
+                </div>)}
             </>
         )
     
@@ -137,7 +148,5 @@ const App: React.FC<{}> = () => {
 }
 const root =  document.createElement('div')
 root.id = "notes-ui"
-// console.log(root);
-
 
 ReactDOM.render(<App/>, root) 
