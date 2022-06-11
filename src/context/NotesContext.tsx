@@ -19,7 +19,7 @@ export const NotesProvider = ({children}) => {
     const initialNotes =  () => localStorage.getItem('id')===null ? []: JSON.parse(localStorage.getItem('id'))
 
     const [notes, setNotes] = useState(initialNotes)
-
+    const[name, setName] = useState('nainil')
 
     const [notesEdit, setNotesEdit] = useState({
         item: {},
@@ -60,13 +60,20 @@ export const NotesProvider = ({children}) => {
         })
     }
 
+
+    const currName = (currname) =>{
+        setName(currname)
+    }
+
     return <NotesContext.Provider value={{
+        name,
         notes,
         notesEdit,
         deleteNotes,
         addNotes,
         editNotes,
         updateNotes,
+        currName,
     }}>
         {children}
     </NotesContext.Provider>

@@ -1,5 +1,5 @@
 // TODO: content script
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import ReactDOM  from "react-dom";
 import Card from "../components/shared/Card"
 
@@ -8,14 +8,17 @@ import TextEditor from '../components/TextEditor';
 
 import NotesList from '../components/NotesList';
 import { NotesProvider } from '../context/NotesContext';
-import RenderNotes from "../components/RenderNotes";
 import $ from 'jquery';
 import "./contentScript.css"
+import NotesContext from "../context/NotesContext";
+
 
 
 const App: React.FC<{}> = () => {
     const [notesOpen, setNotesOpen] = useState(false);
-    const [rendered, setRendered] = useState(false);
+    const {currName} = useContext(NotesContext);
+
+
     var debug = false;
     var safetyDelayShort = 300;
  
@@ -68,8 +71,9 @@ const App: React.FC<{}> = () => {
     var rightSidePanel = $('._2J8hu')
     console.log("Rgt panel", rightSidePanel);
 
+    
 
-    const changeStyleofWAUI = () =>{
+    const changeStyleofWAUI = () => {
         setNotesOpen(prev => !prev)
         // console.log(notesOpen);
         if(!notesOpen && rightSidePanel.length ==0){
@@ -114,19 +118,32 @@ const App: React.FC<{}> = () => {
         console.log("Phone", phoneNumber);
     }
 
+    const retrieveName = () =>{
+        console.log("IN Name");
+        var name = $('._21nHd')
+        currName(name[0].innerText)
+        console.log("Name", name[0].innerText);
+
+    }
+
     const notesMaker = () =>{
         changeStyleofWAUI()
-        retrievePhoneNumber()
+        // retrievePhoneNumber()
+        retrieveName()
     }
 
     
+
+
+
     return (
-
-            <>  
+        
+            <NotesProvider>  
                 {/* <Header/>  */}
-                <button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
-                </button>
-
+                <NotesProvider>
+                    <button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
+                    </button>
+                </NotesProvider>
                 {notesOpen && mainChats && rightSidePanel.length ==0 &&(
                     <NotesProvider>
                         <div className="container">
@@ -141,7 +158,7 @@ const App: React.FC<{}> = () => {
                 {notesOpen && mainChats == undefined && (<div className="container">
                     <h2>Please select a chat!!</h2>
                 </div>)}
-            </>
+            </NotesProvider>
         )
     
     
