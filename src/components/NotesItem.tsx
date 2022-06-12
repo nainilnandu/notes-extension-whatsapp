@@ -6,11 +6,14 @@ import NotesContext from '../context/NotesContext'
 
 
 
-function NotesItem({item}) {
+function NotesItem({item,name}) {
     const {deleteNotes, editNotes} = useContext(NotesContext)
+    // const {currName} = useContext(NotesContext);
+
+
     return (
         <Card> 
-            <button onClick = {() => deleteNotes(item.id)} className='close'>
+            <button onClick = {() => deleteNotes(item.id,name)} className='close'>
                 <FaTimes color='#E18B43'/>
             </button> 
             <button onClick = {() => editNotes(item)} className='edit'>

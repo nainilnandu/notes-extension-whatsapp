@@ -16,10 +16,19 @@ const NotesContext = createContext(null);
 
 export const NotesProvider = ({children}) => {
 
-    const initialNotes =  () => localStorage.getItem('id')===null ? []: JSON.parse(localStorage.getItem('id'))
+    // const initialNotes =  () => localStorage.getItem('id')===null ? []: JSON.parse(localStorage.getItem('id'))
 
-    const [notes, setNotes] = useState(initialNotes)
-    const[name, setName] = useState('nainil')
+    const [notes, setNotes] = useState([])
+    // const[name, setName] = useState('nainil')
+
+
+    const displayNote = (currName) => {
+        console.log("Display", currName);
+        const initialNotes =  () => localStorage.getItem(currName)===null ? []: JSON.parse(localStorage.getItem(currName))
+        console.log(initialNotes);
+        setNotes(initialNotes)
+        console.log(notes);
+    }
 
     const [notesEdit, setNotesEdit] = useState({
         item: {},
@@ -27,22 +36,25 @@ export const NotesProvider = ({children}) => {
     })
 
 
-    const addNotes = (newNotes) => {
+    const addNotes = (newNotes, name) => {
         newNotes.id = uuidv4()
         setNotes([newNotes, ...notes])
-        console.log(newNotes)
-        localStorage.setItem("id", JSON.stringify([newNotes, ...notes]))
-        console.log(notes);
+        // console.log(newNotes)
+        localStorage.setItem(name, JSON.stringify([newNotes, ...notes]))
+        // console.log(notes);
+        console.log("Context Name:", name);
+        displayNote(name)
       }
 
 
-    const deleteNotes = (id) =>{
+    const deleteNotes = (id, name) =>{
         if(window.confirm('Are you sure you want to delete?')){
           setNotes(notes.filter((item) => item.id!== id))
           const newNotes = notes.filter((item) => item.id!== id)
           console.log(newNotes);
-          localStorage.removeItem("id")
-          localStorage.setItem("id", JSON.stringify([...newNotes]))
+          localStorage.removeItem(name)
+          localStorage.setItem(name, JSON.stringify([...newNotes]))
+          displayNote(name)
         }
     }
 
@@ -61,19 +73,18 @@ export const NotesProvider = ({children}) => {
     }
 
 
-    const currName = (currname) =>{
-        setName(currname)
-    }
+    // const currName = (currname) =>{
+    //     setName(currname)
+    // }
 
     return <NotesContext.Provider value={{
-        name,
         notes,
         notesEdit,
         deleteNotes,
         addNotes,
         editNotes,
         updateNotes,
-        currName,
+        displayNote,
     }}>
         {children}
     </NotesContext.Provider>

@@ -16,8 +16,9 @@ import NotesContext from "../context/NotesContext";
 
 const App: React.FC<{}> = () => {
     const [notesOpen, setNotesOpen] = useState(false);
-    const {currName} = useContext(NotesContext);
-
+    
+    const[name, setName] = useState('')
+    var currName = ''
 
     var debug = false;
     var safetyDelayShort = 300;
@@ -65,11 +66,11 @@ const App: React.FC<{}> = () => {
 
     }
     window.addEventListener ("load", onMainUiReady, false)
-
+    
     
     var mainChats = document.getElementById('main');
     var rightSidePanel = $('._2J8hu')
-    console.log("Rgt panel", rightSidePanel);
+    // console.log("Rgt panel", rightSidePanel);
 
     
 
@@ -111,19 +112,21 @@ const App: React.FC<{}> = () => {
         
     }
 
+    // const {displayNote} = useContext(NotesContext)
 
     const retrievePhoneNumber = () =>{
-        console.log("IN PN");
+        // console.log("IN PN");
         var phoneNumber =$('.AjtLy')[0].innerText
         console.log("Phone", phoneNumber);
     }
 
     const retrieveName = () =>{
         console.log("IN Name");
-        var name = $('._21nHd')
-        currName(name[0].innerText)
-        console.log("Name", name[0].innerText);
-
+        setName($('._21nHd')[0].innerText)
+        currName = $('._21nHd')[0].innerText
+        console.log("Content Name", currName);
+        console.log(name);
+        chrome.runtime.sendMessage({name: currName})
     }
 
     const notesMaker = () =>{
@@ -148,9 +151,9 @@ const App: React.FC<{}> = () => {
                     <NotesProvider>
                         <div className="container">
                             <div className="editor">
-                                <TextEditor />
-                            </div>
-                            <NotesList/>
+                                <TextEditor name = {name} />
+                            </div> 
+                            <NotesList name = {currName}/>
                         </div>
                     </NotesProvider>
                 )}

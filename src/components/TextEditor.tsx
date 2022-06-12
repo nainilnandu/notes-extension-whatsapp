@@ -6,7 +6,8 @@ import { useQuill } from 'react-quilljs'
 import Button from './shared/Button'
 import NotesContext from '../context/NotesContext'
 
-function TextEditor() {
+function TextEditor({name}) {
+    console.log("Text NAme:", name);
     const theme = 'snow';
 
     const modules = {
@@ -74,7 +75,7 @@ function TextEditor() {
             notesEdit.edit = false
         }
         else{
-            addNotes(newNotes)
+            addNotes(newNotes,name)
         }
         
         quill.setContents([])

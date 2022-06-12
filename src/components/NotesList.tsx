@@ -5,7 +5,7 @@ import NotesContext from '../context/NotesContext'
 
 
 
-function NotesList() {
+function NotesList({name}) {
 
     const {notes} = useContext(NotesContext);
 
@@ -21,6 +21,7 @@ function NotesList() {
             <NotesItem 
             key = {item.id} 
             item = {item} 
+            name = {name}
             />
         ))}
     </div>
