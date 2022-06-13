@@ -1,14 +1,14 @@
 // TODO: content script
 import React, { useState, useEffect,useContext } from "react";
 import ReactDOM  from "react-dom";
-import "./contentScript.css"
+
 import $ from 'jquery';
 
 import TextEditor from '../components/TextEditor';
 import NotesList from '../components/NotesList';
 import { NotesProvider } from '../context/NotesContext';
 
-
+import "./contentScript.css"
 
 const App: React.FC<{}> = () => {
 
@@ -132,7 +132,7 @@ const App: React.FC<{}> = () => {
         currName = $('._21nHd')[0].innerText
     }
 
-    
+
     // Function called when Notes Button is clicked!!
     const notesMaker = () =>{
         changeStyleofWAUI()
