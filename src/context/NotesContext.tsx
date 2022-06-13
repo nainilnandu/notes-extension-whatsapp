@@ -2,42 +2,32 @@ import React from "react";
 import ReactDOM  from "react-dom";
 import { createContext,useState } from "react";
 import { v4 as uuidv4} from 'uuid'
-// import NotesData from '../notes_data/NotesData'
-// import { initialState, IState, reducer } from "./reducer";
 
-
-// interface IContextProps {
-//   state: IState;
-//   dispatch: ({type}:{type:string}) => void;
-// }
 
 const NotesContext = createContext(null);
 
 
 export const NotesProvider = ({children, name}) => {
     
-    
+    // State for saving notes
     const [notes, setNotes] = useState([])
     
-
+    // State to check if we are in edit mode
     const [notesEdit, setNotesEdit] = useState({
         item: {},
         edit: false,
     })
 
-
+    // Adding Notes Function
     const addNotes = (newNotes, name) => {
         const userNotes =  localStorage.getItem(name)===null ? []: JSON.parse(localStorage.getItem(name))
         newNotes.id = uuidv4()
         setNotes([newNotes, ...userNotes])
-        // console.log(newNotes)
         localStorage.setItem(name, JSON.stringify([newNotes, ...userNotes]))
-        // console.log(notes);
         console.log("Context Name:", name);
-        // displayNote(name)
       }
 
-
+    // Delete Notes Function
     const deleteNotes = (id, name) =>{
         if(window.confirm('Are you sure you want to delete?')){
             const userNotes =  localStorage.getItem(name)===null ? []: JSON.parse(localStorage.getItem(name))
@@ -49,6 +39,7 @@ export const NotesProvider = ({children, name}) => {
         }
     }
 
+    // Update Notes Function
     const updateNotes = (id, updItm, name) => {
         const userNotes =  localStorage.getItem(name)===null ? []: JSON.parse(localStorage.getItem(name))
         setNotes(userNotes.map((item) =>  item.id === id ? {...item, ...updItm} : item))
@@ -57,6 +48,7 @@ export const NotesProvider = ({children, name}) => {
         localStorage.setItem(name, JSON.stringify([...updatedNotes]))
     }
 
+    // notesEdit state becomes true when clicked on edit button in UI card
     const editNotes = (item) => {
         setNotesEdit({
             item,
@@ -65,10 +57,6 @@ export const NotesProvider = ({children, name}) => {
     }
 
 
-    // const currName = (currname) =>{
-    //     setName(currname)
-    // }
-    
     return <NotesContext.Provider value={{
         notes,
         notesEdit,
@@ -76,7 +64,6 @@ export const NotesProvider = ({children, name}) => {
         addNotes,
         editNotes,
         updateNotes,
-        // displayNote,
     }}>
         {children}
     </NotesContext.Provider>
