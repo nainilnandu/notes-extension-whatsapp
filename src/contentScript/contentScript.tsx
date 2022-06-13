@@ -1,28 +1,30 @@
 // TODO: content script
 import React, { useState, useEffect,useContext } from "react";
 import ReactDOM  from "react-dom";
-import Card from "../components/shared/Card"
+import "./contentScript.css"
+import $ from 'jquery';
 
-import Header from '../components/Header';
 import TextEditor from '../components/TextEditor';
-
 import NotesList from '../components/NotesList';
 import { NotesProvider } from '../context/NotesContext';
-import $ from 'jquery';
-import "./contentScript.css"
-import NotesContext from "../context/NotesContext";
-import DisplayNotes from "../components/DisplayNotes";
+
 
 
 const App: React.FC<{}> = () => {
+
+    // State will save notes is opened or no
     const [notesOpen, setNotesOpen] = useState(false);
     
+    // State for whose chat is currently open
     const[name, setName] = useState('')
     var currName = ''
 
+
     var debug = false;
     var safetyDelayShort = 300;
- 
+
+    // Waiting for User to log in and then inject the contentScript into the id app of whatsapp 
+    // so that extension works only after login. Refered from some github repo!
     function onMainUiReady()
     {
         try
@@ -68,15 +70,18 @@ const App: React.FC<{}> = () => {
     window.addEventListener ("load", onMainUiReady, false)
     
     
+    // Main chats which appears on center
     var mainChats = document.getElementById('main');
+
+    // Info of user which opens on right side
     var rightSidePanel = $('._2J8hu')
-    // console.log("Rgt panel", rightSidePanel);
 
-    
 
+
+    // Changing Whatsapp style when Notes are opened
     const changeStyleofWAUI = () => {
         setNotesOpen(prev => !prev)
-        // console.log(notesOpen);
+        
         if(!notesOpen && rightSidePanel.length ==0){
             
             console.log(notesOpen);
@@ -112,26 +117,25 @@ const App: React.FC<{}> = () => {
         
     }
 
-    // const {displayNote} = useContext(NotesContext)
 
-    const retrievePhoneNumber = () =>{
-        // console.log("IN PN");
-        var phoneNumber =$('.AjtLy')[0].innerText
-        console.log("Phone", phoneNumber);
-    }
+    // const retrievePhoneNumber = () =>{
+    //     // console.log("IN PN");
+    //     var phoneNumber =$('.AjtLy')[0].innerText
+    //     console.log("Phone", phoneNumber);
+    // }
 
+
+    // Retrieving name of the person whose chat is opened currently
     const retrieveName = () =>{
         console.log("IN Name");
         setName($('._21nHd')[0].innerText)
         currName = $('._21nHd')[0].innerText
-        // console.log("Content Name", currName);
-        // console.log(name);
-        chrome.runtime.sendMessage({name: currName})
     }
 
+    
+    // Function called when Notes Button is clicked!!
     const notesMaker = () =>{
         changeStyleofWAUI()
-        // retrievePhoneNumber()
         retrieveName()
     }
 
@@ -142,11 +146,14 @@ const App: React.FC<{}> = () => {
     return (
         
             <>  
-                {/* <Header/>  */}
                 
-                    <button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
-                    </button>
+                {/* Notes button on the main UI */}
+                <button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
+                </button>
                 
+
+                {/* If notesOpen state is true and rightSidePanel i.e. info panel is not opened
+                and mainChats window is currently open then only show notes    */}
                 {notesOpen && mainChats && rightSidePanel.length ==0 &&(
                     <NotesProvider name = {name}>
                         <div className="container">
@@ -159,6 +166,8 @@ const App: React.FC<{}> = () => {
                     </NotesProvider>
                 )}
 
+                {/* if mainChats window is not opened and notesOpen is true 
+                then it will show Please select a chat!!  */}
                 {notesOpen && mainChats == undefined && (<div className="container">
                     <h2>Please select a chat!!</h2>
                 </div>)}
@@ -167,6 +176,8 @@ const App: React.FC<{}> = () => {
     
     
 }
+
+
 const root =  document.createElement('div')
 root.id = "notes-ui"
 
