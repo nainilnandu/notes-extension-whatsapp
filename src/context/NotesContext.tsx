@@ -14,21 +14,20 @@ import { v4 as uuidv4} from 'uuid'
 const NotesContext = createContext(null);
 
 
-export const NotesProvider = ({children}) => {
-
-    // const initialNotes =  () => localStorage.getItem('id')===null ? []: JSON.parse(localStorage.getItem('id'))
-
+export const NotesProvider = ({children, name}) => {
+    
+    
     const [notes, setNotes] = useState([])
     // const[name, setName] = useState('nainil')
 
 
-    const displayNote = (currName) => {
-        console.log("Display", currName);
-        const initialNotes =  () => localStorage.getItem(currName)===null ? []: JSON.parse(localStorage.getItem(currName))
-        console.log(initialNotes);
-        setNotes(initialNotes)
-        console.log(notes);
-    }
+    // const displayNote = (currName) => {
+    //     console.log("Display", currName);
+    //     const initialNotes =  () => localStorage.getItem(currName)===null ? []: JSON.parse(localStorage.getItem(currName))
+    //     console.log(initialNotes);
+    //     setNotes(initialNotes)
+    //     console.log(notes);
+    // }
 
     const [notesEdit, setNotesEdit] = useState({
         item: {},
@@ -43,7 +42,7 @@ export const NotesProvider = ({children}) => {
         localStorage.setItem(name, JSON.stringify([newNotes, ...notes]))
         // console.log(notes);
         console.log("Context Name:", name);
-        displayNote(name)
+        // displayNote(name)
       }
 
 
@@ -54,7 +53,7 @@ export const NotesProvider = ({children}) => {
           console.log(newNotes);
           localStorage.removeItem(name)
           localStorage.setItem(name, JSON.stringify([...newNotes]))
-          displayNote(name)
+        //   displayNote(name)
         }
     }
 
@@ -76,7 +75,7 @@ export const NotesProvider = ({children}) => {
     // const currName = (currname) =>{
     //     setName(currname)
     // }
-
+    
     return <NotesContext.Provider value={{
         notes,
         notesEdit,
@@ -84,7 +83,7 @@ export const NotesProvider = ({children}) => {
         addNotes,
         editNotes,
         updateNotes,
-        displayNote,
+        // displayNote,
     }}>
         {children}
     </NotesContext.Provider>

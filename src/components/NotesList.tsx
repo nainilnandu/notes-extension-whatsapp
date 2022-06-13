@@ -10,14 +10,19 @@ function NotesList({name}) {
     const {notes} = useContext(NotesContext);
 
 
-    if(!notes || notes.length===0)
+    console.log("Context",name);
+    const initialNotes =  localStorage.getItem(name)===null ? []: JSON.parse(localStorage.getItem(name))
+
+    console.log("InitialNOtes: ",initialNotes);
+
+    if(!initialNotes || initialNotes.length===0)
         return <p>No Notes Yet!!</p>
 
 
 
     return (
         <div>
-        {notes.map((item) =>(
+        {initialNotes.map((item) =>(
             <NotesItem 
             key = {item.id} 
             item = {item} 

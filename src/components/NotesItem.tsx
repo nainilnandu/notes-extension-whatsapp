@@ -11,6 +11,11 @@ function NotesItem({item,name}) {
     // const {currName} = useContext(NotesContext);
 
 
+    // const deleteClicked = () => {
+    //     deleteNotes(item.id,name)
+    //     displayNote(name)
+    // }
+
     return (
         <Card> 
             <button onClick = {() => deleteNotes(item.id,name)} className='close'>
@@ -19,7 +24,7 @@ function NotesItem({item,name}) {
             <button onClick = {() => editNotes(item)} className='edit'>
                 <FaEdit color='#E18B43'/>
             </button> 
-             <div dangerouslySetInnerHTML={{__html: item.text}}></div>
+            <div dangerouslySetInnerHTML={{__html: item.text}}></div>
         </Card>
            
     )

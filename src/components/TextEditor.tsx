@@ -31,13 +31,13 @@ function TextEditor({name}) {
     const { quill, quillRef } = useQuill({ theme, modules, formats, placeholder });
     const [htmlText, setHtmlText] = useState([])
     let buttonText = "Add Notes"
-    const {addNotes, notesEdit, updateNotes} = useContext(NotesContext)
+    const {addNotes, notesEdit, updateNotes,displayNote} = useContext(NotesContext)
     
     useEffect(() => {
         // console.log("in effect");
         if (quill) {
             quill.on('text-change', (delta, oldDelta, source) => {
-              console.log('Text change!');
+            //   console.log('Text change!');
               setHtmlText(quill.root.innerHTML);
             });
           }
@@ -52,24 +52,24 @@ function TextEditor({name}) {
 
     useEffect(() => {
         if(notesEdit.edit === true){
-            console.log(notesEdit.item.text);
+            // console.log(notesEdit.item.text);
             //quill.setContents(notesEdit.item.text)
             quill.root.innerHTML = notesEdit.item.text;
             
         }
     }, [notesEdit,quill])
 
-
+    
     
     
     
     const handleSubmit = (e) =>{
         e.preventDefault()
-        console.log(htmlText);
+        // console.log(htmlText);
         const newNotes = {
             text:htmlText
         }
-        console.log(newNotes)
+        // console.log(newNotes)
         if(notesEdit.edit === true){
             updateNotes(notesEdit.item.id, newNotes)
             notesEdit.edit = false

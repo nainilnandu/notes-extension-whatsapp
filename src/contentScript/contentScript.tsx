@@ -11,7 +11,7 @@ import { NotesProvider } from '../context/NotesContext';
 import $ from 'jquery';
 import "./contentScript.css"
 import NotesContext from "../context/NotesContext";
-
+import DisplayNotes from "../components/DisplayNotes";
 
 
 const App: React.FC<{}> = () => {
@@ -124,8 +124,8 @@ const App: React.FC<{}> = () => {
         console.log("IN Name");
         setName($('._21nHd')[0].innerText)
         currName = $('._21nHd')[0].innerText
-        console.log("Content Name", currName);
-        console.log(name);
+        // console.log("Content Name", currName);
+        // console.log(name);
         chrome.runtime.sendMessage({name: currName})
     }
 
@@ -141,19 +141,20 @@ const App: React.FC<{}> = () => {
 
     return (
         
-            <NotesProvider>  
+            <>  
                 {/* <Header/>  */}
-                <NotesProvider>
+                
                     <button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
                     </button>
-                </NotesProvider>
+                
                 {notesOpen && mainChats && rightSidePanel.length ==0 &&(
-                    <NotesProvider>
+                    <NotesProvider name = {name}>
                         <div className="container">
                             <div className="editor">
                                 <TextEditor name = {name} />
-                            </div> 
-                            <NotesList name = {currName}/>
+                            </div>
+                            {/* <DisplayNotes name = {currName}/> */}
+                            <NotesList name = {name}/>
                         </div>
                     </NotesProvider>
                 )}
@@ -161,7 +162,7 @@ const App: React.FC<{}> = () => {
                 {notesOpen && mainChats == undefined && (<div className="container">
                     <h2>Please select a chat!!</h2>
                 </div>)}
-            </NotesProvider>
+            </>
         )
     
     
