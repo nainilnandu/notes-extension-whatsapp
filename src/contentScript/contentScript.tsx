@@ -125,7 +125,7 @@ const App: React.FC<{}> = () => {
     // }
 
 
-    // Retrieving name of the person whose chat is opened currently
+    // Retrieving name of the person whose chat is currently opened
     const retrieveName = () =>{
         console.log("IN Name");
         setName($('._21nHd')[0].innerText)
