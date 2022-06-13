@@ -40,12 +40,12 @@ export const NotesProvider = ({children, name}) => {
 
     const deleteNotes = (id, name) =>{
         if(window.confirm('Are you sure you want to delete?')){
-          setNotes(notes.filter((item) => item.id!== id))
-          const newNotes = notes.filter((item) => item.id!== id)
-          console.log(newNotes);
-          localStorage.removeItem(name)
-          localStorage.setItem(name, JSON.stringify([...newNotes]))
-        //   displayNote(name)
+            const userNotes =  localStorage.getItem(name)===null ? []: JSON.parse(localStorage.getItem(name))
+            setNotes(userNotes.filter((item) => item.id!== id))
+            const newNotes = userNotes.filter((item) => item.id!== id)
+            console.log(newNotes);
+            localStorage.removeItem(name)
+            localStorage.setItem(name, JSON.stringify([...newNotes]))
         }
     }
 
