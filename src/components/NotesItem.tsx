@@ -8,14 +8,7 @@ import NotesContext from '../context/NotesContext'
 
 function NotesItem({item,name}) {
     const {deleteNotes, editNotes} = useContext(NotesContext)
-    // const {currName} = useContext(NotesContext);
-
-
-    // const deleteClicked = () => {
-    //     deleteNotes(item.id,name)
-    //     displayNote(name)
-    // }
-
+    
     return (
         <Card> 
             <button onClick = {() => deleteNotes(item.id,name)} className='close'>
