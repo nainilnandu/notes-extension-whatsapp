@@ -7,7 +7,9 @@ import Button from './shared/Button'
 import NotesContext from '../context/NotesContext'
 
 function TextEditor({name}) {
-    console.log("Text NAme:", name);
+    // console.log("Text Name:", name);
+
+
     const theme = 'snow';
 
     const modules = {
@@ -28,44 +30,40 @@ function TextEditor({name}) {
                     'link',];
 
 
+    // Adding Quill Editor
     const { quill, quillRef } = useQuill({ theme, modules, formats, placeholder });
+
+    // State for saving the html of data written in quill editor
     const [htmlText, setHtmlText] = useState([])
-    let buttonText = "Add Notes"
-    const {addNotes, notesEdit, updateNotes,displayNote} = useContext(NotesContext)
     
+    // These functions have been called from NotesContext file
+    const {addNotes, notesEdit, updateNotes} = useContext(NotesContext)
+    
+
+    // Whenever the text changes in quill editor this runs and sets the htmlText state 
     useEffect(() => {
-        // console.log("in effect");
         if (quill) {
-            quill.on('text-change', (delta, oldDelta, source) => {
-            //   console.log('Text change!');
-              setHtmlText(quill.root.innerHTML);
+                quill.on('text-change', (delta, oldDelta, source) => {
+                setHtmlText(quill.root.innerHTML);
             });
-          }
+        }
           
     }, [quill]); 
 
     
-    // quill.setHTML = (html) => {
-    //     quill.root.innerHTML = html;
-    // };
-    
-
+    // It runs if we are into edit state and we make changes
     useEffect(() => {
         if(notesEdit.edit === true){
-            // console.log(notesEdit.item.text);
-            //quill.setContents(notesEdit.item.text)
-            quill.root.innerHTML = notesEdit.item.text;
-            
+            quill.root.innerHTML = notesEdit.item.text;    
         }
     }, [notesEdit,quill])
 
     
     
     
-    
+    // Function runs on clicking Add Note Button!
     const handleSubmit = (e) =>{
         e.preventDefault()
-        // console.log(htmlText);
         const newNotes = {
             text:htmlText
         }
