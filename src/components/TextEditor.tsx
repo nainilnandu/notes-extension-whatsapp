@@ -71,7 +71,7 @@ function TextEditor({name}) {
         }
         // console.log(newNotes)
         if(notesEdit.edit === true){
-            updateNotes(notesEdit.item.id, newNotes)
+            updateNotes(notesEdit.item.id, newNotes, name)
             notesEdit.edit = false
         }
         else{
