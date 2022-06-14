@@ -7,9 +7,8 @@ import Button from './shared/Button'
 import NotesContext from '../context/NotesContext'
 
 function TextEditor({name}) {
-    // console.log("Text Name:", name);
-
-
+    
+    //Quill Editor 
     const theme = 'snow';
 
     const modules = {
@@ -67,7 +66,7 @@ function TextEditor({name}) {
         const newNotes = {
             text:htmlText
         }
-        // console.log(newNotes)
+
         if(notesEdit.edit === true){
             updateNotes(notesEdit.item.id, newNotes, name)
             notesEdit.edit = false

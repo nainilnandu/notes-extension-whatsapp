@@ -13,8 +13,6 @@ function NotesList({name}) {
     
     const userNotes =  localStorage.getItem(name)===null ? []: JSON.parse(localStorage.getItem(name))
     
-    
-    console.log("UserNotes: ",userNotes);
 
     if(!userNotes || userNotes.length===0)
         return <p>No Notes Yet!!</p>

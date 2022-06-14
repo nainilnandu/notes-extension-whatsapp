@@ -24,7 +24,6 @@ export const NotesProvider = ({children, name}) => {
         newNotes.id = uuidv4()
         setNotes([newNotes, ...userNotes])
         localStorage.setItem(name, JSON.stringify([newNotes, ...userNotes]))
-        console.log("Context Name:", name);
       }
 
     // Delete Notes Function
@@ -33,7 +32,6 @@ export const NotesProvider = ({children, name}) => {
             const userNotes =  localStorage.getItem(name)===null ? []: JSON.parse(localStorage.getItem(name))
             setNotes(userNotes.filter((item) => item.id!== id))
             const newNotes = userNotes.filter((item) => item.id!== id)
-            console.log(newNotes);
             localStorage.removeItem(name)
             localStorage.setItem(name, JSON.stringify([...newNotes]))
         }

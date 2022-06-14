@@ -84,7 +84,6 @@ const App: React.FC<{}> = () => {
         
         if(!notesOpen && rightSidePanel.length ==0){
             
-            console.log(notesOpen);
             $('#side').css(
                 'width', '80%'
             ),
@@ -127,10 +126,8 @@ const App: React.FC<{}> = () => {
 
     // Retrieving name of the person whose chat is currently opened
     const retrieveName = () =>{
-        console.log("IN Name");
         currName = "notes_" + $('._21nHd')[0].innerText
         setName(currName)
-        console.log(currName);
         
     }
 
