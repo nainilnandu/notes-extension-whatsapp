@@ -14,11 +14,7 @@ import "./contentScript.css"
 
 const App: React.FC<{}> = () => {
 
-    // const [messages, setMessages] = useState(['Hello! how can we help you?', 'Hello!', 'Thank you for using service!'])
-    // var total_messages = 0;
-    // localStorage.setItem("Sugg_messages", JSON.stringify(messages));
-
-
+    
     // State will save notes is opened or no
     const [notesOpen, setNotesOpen] = useState(false);
     
@@ -29,10 +25,6 @@ const App: React.FC<{}> = () => {
 
     var currName = ''
 
-
-    // const [messages, setMessages] = useState(['Hello! how can we help you?', 'Hello!', 'Thank you for using service!'])
-    // var total_messages = 0;
-    // localStorage.setItem("Sugg_messages", JSON.stringify(messages));
 
     var debug = false;
     var safetyDelayShort = 300;
