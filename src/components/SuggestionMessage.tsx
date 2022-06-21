@@ -12,7 +12,7 @@ function SuggestionMessage() {
 	
 	// Fetching footer of WA and ading some css 
 	var footer = $('footer._2cYbV');
-    console.log(footer);
+    
     if(!footer)
         return;
     footer.css(

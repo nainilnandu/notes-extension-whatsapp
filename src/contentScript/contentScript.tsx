@@ -94,6 +94,10 @@ const App: React.FC<{}> = () => {
 
     useEffect(() => {
         console.log("Main Chat changed");
+        if(notesOpen){
+            notesPanelOpenCss()
+        }
+            
     }, [name])
 
 
@@ -103,41 +107,46 @@ const App: React.FC<{}> = () => {
     // Info of user which opens on right side
     var rightSidePanel = $('._2J8hu')
 
-    
+    const notesPanelOpenCss = () => {
+        $('#side').css(
+            'width', '80%'
+        ),
+        
+        $('._3sh5K').css(
+            'left', '-90px'
+        ),
+        $('#main').css(
+            'width', '70%'
+        )
+        $('.ldL67 .zaKsw').css(
+            'width', '70%'
+        )
+    }
+
+    const notesPanelCloseCss = () => {
+        $('#side').css(
+            'width', '100%'
+        ),
+        $('#app #main').css(
+            'width', '100%'
+        ),
+        $('._3sh5K').css(
+            'left', '0px'
+        )
+        $('.ldL67 .zaKsw').css(
+            'width', '100%'
+        ) 
+    }
+
 
     // Changing Whatsapp style when Notes are opened
     const changeStyleofWAUI = () => {
-    
+        
         if(!notesOpen && rightSidePanel.length ==0){
-            
-            $('#side').css(
-                'width', '80%'
-            ),
-            
-            $('._3sh5K').css(
-                'left', '-90px'
-            ),
-            $('#main').css(
-                'width', '70%'
-            )
-            $('.ldL67 .zaKsw').css(
-                'width', '70%'
-            )
-    
+            notesPanelOpenCss()
         }
         else{
-            $('#side').css(
-                'width', '100%'
-            ),
-            $('#app #main').css(
-                'width', '100%'
-            ),
-            $('._3sh5K').css(
-                'left', '0px'
-            )
-            $('.ldL67 .zaKsw').css(
-                'width', '100%'
-            ) 
+            notesPanelCloseCss()
         }
         
     }
@@ -152,6 +161,8 @@ const App: React.FC<{}> = () => {
 
     // Retrieving name of the person whose chat is currently opened
     const retrieveName = () =>{
+        if($('._21nHd')[0]==undefined)
+            return;
         currName = "notes_" + $('._21nHd')[0].innerText
         setName(currName)
         
@@ -166,7 +177,7 @@ const App: React.FC<{}> = () => {
     }
 
     
-
+    console.log("Main", notesOpen);
 
 
     return (
@@ -182,7 +193,7 @@ const App: React.FC<{}> = () => {
             
                 {/* If notesOpen state is true and rightSidePanel i.e. info panel is not opened
                 and mainChats window is currently open then only show notes    */}
-                {notesOpen && mainChats && rightSidePanel.length ==0 &&(
+                {notesOpen && mainChats && name && rightSidePanel.length ==0 &&(
                     <NotesProvider>
                         <div className="container">
                             <div className="editor">
