@@ -6,23 +6,37 @@ import $ from 'jquery';
 
 import TextEditor from '../components/TextEditor';
 import NotesList from '../components/NotesList';
+import SuggestionMessage from "../components/SuggestionMessage";
 import { NotesProvider } from '../context/NotesContext';
-
+import SuggestionMessageContext from "../context/SuggestionMessageContext";
+import { SuggestionMessageProvider } from "../context/SuggestionMessageContext";
 import "./contentScript.css"
 
 const App: React.FC<{}> = () => {
 
+    // const [messages, setMessages] = useState(['Hello! how can we help you?', 'Hello!', 'Thank you for using service!'])
+    // var total_messages = 0;
+    // localStorage.setItem("Sugg_messages", JSON.stringify(messages));
+
+
     // State will save notes is opened or no
     const [notesOpen, setNotesOpen] = useState(false);
     
+    const [mainChatOpen, setMainChatOpen] = useState('');
+
     // State for whose chat is currently open
     const[name, setName] = useState('')
+
     var currName = ''
 
 
+    // const [messages, setMessages] = useState(['Hello! how can we help you?', 'Hello!', 'Thank you for using service!'])
+    // var total_messages = 0;
+    // localStorage.setItem("Sugg_messages", JSON.stringify(messages));
+
     var debug = false;
     var safetyDelayShort = 300;
-
+    
     // Waiting for User to log in and then inject the contentScript into the id app of whatsapp 
     // so that extension works only after login. Refered from some github repo!
     function onMainUiReady()
@@ -55,6 +69,7 @@ const App: React.FC<{}> = () => {
                             setTimeout(function () { onMainUiReady(); }, safetyDelayShort);
                         }
                     });
+                   
                     mutationObserver.observe(appElem, { childList: true, subtree: true });
                 }
             }
@@ -67,21 +82,45 @@ const App: React.FC<{}> = () => {
 
 
     }
+    
     window.addEventListener ("load", onMainUiReady, false)
     
+    window.onload = function() {
+        if(window.location.host === 'web.whatsapp.com'){
+            // const suggMsgs =  localStorage.getItem("Sugg_messages")===null ? []: JSON.parse(localStorage.getItem("Sugg_messages"))
+            // setMessages(suggMsgs)
+            setInterval(() => {
+                var mainChat = document.getElementById('main')
+                if(mainChat){
+                    retrieveName()
+                }  
+            }, 2000);
+        }
+    };
     
+    
+
+    useEffect(() => {
+        console.log("Main Chat changed");
+    }, [name])
+
+    // useEffect(() => {
+    //     console.log("Messages Changed !!");
+    // }, [messages])
+    console.log(name);
+
     // Main chats which appears on center
     var mainChats = document.getElementById('main');
+    // console.log(mainChats)
 
     // Info of user which opens on right side
     var rightSidePanel = $('._2J8hu')
 
-
+    
 
     // Changing Whatsapp style when Notes are opened
     const changeStyleofWAUI = () => {
-        setNotesOpen(prev => !prev)
-        
+    
         if(!notesOpen && rightSidePanel.length ==0){
             
             $('#side').css(
@@ -134,6 +173,7 @@ const App: React.FC<{}> = () => {
 
     // Function called when Notes Button is clicked!!
     const notesMaker = () =>{
+        setNotesOpen(prev => !prev)
         changeStyleofWAUI()
         retrieveName()
     }
@@ -151,10 +191,12 @@ const App: React.FC<{}> = () => {
                 </button>
                 
 
+
+            
                 {/* If notesOpen state is true and rightSidePanel i.e. info panel is not opened
                 and mainChats window is currently open then only show notes    */}
                 {notesOpen && mainChats && rightSidePanel.length ==0 &&(
-                    <NotesProvider name = {name}>
+                    <NotesProvider>
                         <div className="container">
                             <div className="editor">
                                 <TextEditor name = {name} />
@@ -165,11 +207,20 @@ const App: React.FC<{}> = () => {
                     </NotesProvider>
                 )}
 
+               
                 {/* if mainChats window is not opened and notesOpen is true 
                 then it will show Please select a chat!!  */}
-                {notesOpen && mainChats == undefined && (<div className="container">
+                {notesOpen && mainChats === null && (<div className="container">
                     <h2>Please select a chat!!</h2>
                 </div>)}
+
+                    
+                { name && (
+                    <SuggestionMessageProvider>
+                        <SuggestionMessage/>  
+                    </SuggestionMessageProvider>
+                    
+                )}
             </>
         )
     

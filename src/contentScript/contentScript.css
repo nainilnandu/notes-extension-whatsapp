@@ -25,7 +25,7 @@ body {
   position: relative;
 } */
 
-#notes-ui .top-navbar{
+/* #notes-ui .top-navbar{
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -34,7 +34,7 @@ body {
   height: 48px;
   max-height: 48px;
   z-index: 250;
-}
+} */
 
 
 .container {
@@ -168,3 +168,128 @@ header {
   width: 70%;
 }
  */
+
+
+
+ /* Whatsapp Quick Reply CSS */
+
+ #reply_div{
+    position: absolute;
+    padding: 8px 12px;
+    top: 0;
+    z-index: 1;
+    width: calc(100% - 80px);
+ }
+
+#smart_reply_edit_button{
+    position: absolute;
+    width: 80px;
+    right: 8px;
+    top: 12px;
+    color: var(--message-primary);
+    font-size: 12px !important
+}
+
+.reply_click{
+    color: var(--message-primary);
+    background-color: var(--outgoing-background);
+    border-radius: 15px;
+    padding: 4px 8px;
+    font-size: 12px;
+    margin-right: 8px;
+    margin-bottom: 4px;
+}
+
+.modal{
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content{
+    position: relative;
+    width: 600px;
+    height: 560px;
+    overflow: auto;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    
+
+}
+
+.popup-heading{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 24px;
+    color: #000;
+}
+
+
+#sugg_message_list{
+    height: 210px;
+    overflow-y: auto;
+    margin: 16px 0;
+
+}
+
+#close_edit{
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    font-size: 20px;
+}
+
+
+#add_message{
+	width: 400px;
+	height: 100px;
+	padding: 8px;
+}
+
+#add_message_btn{
+	background: #1E4F29;
+	border-radius: 2px;
+	padding: 8px 12px;
+	float: right;
+	color: #fff;
+}
+
+
+#message-item{
+	margin: 8px 0px;
+	display: flex;
+}
+
+.popup_list_message{
+	color: var(--message-primary);
+	background-color: var(--outgoing-background);
+	padding: 6px 7px 8px 9px;
+	border-radius: 7.5px;
+	margin: 2px 0px;
+	max-width: 400px;
+	margin-right: 8px;
+	cursor: pointer;
+	overflow: auto;
+}
+
+.delete_message{
+	border: 1px solid red;
+	width: 18px;
+	height: 18px;
+	color: red;
+	border-radius: 50%;
+	font-size: 11px;
+	margin-top: 8px;
+}
+

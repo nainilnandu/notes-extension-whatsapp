@@ -7,7 +7,7 @@ import { v4 as uuidv4} from 'uuid'
 const NotesContext = createContext(null);
 
 
-export const NotesProvider = ({children, name}) => {
+export const NotesProvider = ({children}) => {
     
     // State for saving notes
     const [notes, setNotes] = useState([])
