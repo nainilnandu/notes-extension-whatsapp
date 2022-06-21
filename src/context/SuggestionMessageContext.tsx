@@ -11,15 +11,17 @@ const SuggestionMessageContext = createContext(null);
 
 export const SuggestionMessageProvider = ({children}) => {
     
-    const [messages, setMessages] = useState(SuggestionMsgData)
+    const initialMsgs =  localStorage.getItem("Sugg_messages")===null ? SuggestionMsgData: JSON.parse(localStorage.getItem("Sugg_messages"))
+
+    const [messages, setMessages] = useState(initialMsgs)
     var total_messages = 0;
-    localStorage.setItem("Sugg_messages", JSON.stringify(messages));
 
     const [edit, setEdit] = useState(false)
     
+
     window.onload = function() {
         if(window.location.host === 'web.whatsapp.com'){
-            const suggMsgs =  localStorage.getItem("Sugg_messages")===null ? []: JSON.parse(localStorage.getItem("Sugg_messages"))
+            const suggMsgs =  localStorage.getItem("Sugg_messages")=== null ? SuggestionMsgData: JSON.parse(localStorage.getItem("Sugg_messages"))
             setMessages(suggMsgs)
         }
     };
@@ -30,7 +32,7 @@ export const SuggestionMessageProvider = ({children}) => {
         localStorage.setItem("Sugg_messages", JSON.stringify([...messages, newMessage]))
     }
 
-
+    
     const deleteMsg = (id) =>{
         if(window.confirm('Are you sure you want to delete?')){
             setMessages(messages.filter((item) => item.id!== id))
@@ -62,18 +64,14 @@ export const SuggestionMessageProvider = ({children}) => {
         if(!(messageBox && (messageBox != undefined)))
             return;
         
-        // messageBox.addEventListener('click', function (e) {
-        //         e.preventDefault()
-        //         document.execCommand('insertHTML', false, message)
-        // })
-        // messageBox.innerText = ""
-
+        
         // messageBox.innerHTML = message.replace(/ /gm, " ")
         document.execCommand('insertHTML', false, message)
-        console.log(messageBox.innerHTML)
         messageBox.dispatchEvent(event)
-        console.log(document.querySelector('span[data-icon="send"]'));
+        
         eventFire(document.querySelector('span[data-icon="send"]'), "click");
+
+
         if(document.querySelectorAll("[contenteditable='true']")[1].innerHTML === '') {
             setTimeout(async function () {
                 await sendMessage(message);

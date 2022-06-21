@@ -85,10 +85,10 @@ const App: React.FC<{}> = () => {
     
     window.addEventListener ("load", onMainUiReady, false)
     
+
+    // Suggestion messages displayed when any chat is opened
     window.onload = function() {
         if(window.location.host === 'web.whatsapp.com'){
-            // const suggMsgs =  localStorage.getItem("Sugg_messages")===null ? []: JSON.parse(localStorage.getItem("Sugg_messages"))
-            // setMessages(suggMsgs)
             setInterval(() => {
                 var mainChat = document.getElementById('main')
                 if(mainChat){
@@ -104,14 +104,9 @@ const App: React.FC<{}> = () => {
         console.log("Main Chat changed");
     }, [name])
 
-    // useEffect(() => {
-    //     console.log("Messages Changed !!");
-    // }, [messages])
-    console.log(name);
 
     // Main chats which appears on center
     var mainChats = document.getElementById('main');
-    // console.log(mainChats)
 
     // Info of user which opens on right side
     var rightSidePanel = $('._2J8hu')
@@ -214,7 +209,8 @@ const App: React.FC<{}> = () => {
                     <h2>Please select a chat!!</h2>
                 </div>)}
 
-                    
+
+                {/* Suggestion Message which are displayed above the chatbox */}
                 { name && (
                     <SuggestionMessageProvider>
                         <SuggestionMessage/>  

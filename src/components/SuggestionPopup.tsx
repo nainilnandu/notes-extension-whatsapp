@@ -13,9 +13,8 @@ import { v4 as uuidv4} from 'uuid'
 
 function SuggestionPopup() {
 
-    var my_number = null
+    
     const {messages,setMessages,edit,setEdit, addMessage,sendMessage} = useContext(SuggestionMessageContext)
-
 
 
     const msg_list = (event) => {

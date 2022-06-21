@@ -33,8 +33,6 @@ function SuggestionMessage() {
 	footer.append(reply_div);
 	
 
-    var number = null;
-
 	// Displaying the suggested messages  
 	$.each(messages, function(i, p) {
         var ps = p.message;
@@ -54,9 +52,14 @@ function SuggestionMessage() {
 	else{
 		$('#reply_div').append('<button id="smart_reply_edit_button">Edit</button>')
 	}
+
+
+	// Edit Button event
 	document.getElementById("smart_reply_edit_button").addEventListener("click", function(event) {
         setEdit(true)
     });
+
+	// Message which are displayed above the chat when clicked will send the clicked message
     document.getElementById("reply_div").addEventListener("click", function(event) {
         var message = (event.target as HTMLInputElement).value
         sendMessage(message);
