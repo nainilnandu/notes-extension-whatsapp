@@ -283,6 +283,7 @@ const App: React.FC<{}> = () => {
                 {notesOpen && mainChats && name &&(
                     <NotesProvider>
                         <div className="container">
+                            <h2 className="notes-name">{name.substring(6)} Notes</h2>
                             <div className="editor">
                                 <TextEditor name = {name} />
                             </div>
