@@ -15,7 +15,7 @@ function NotesList({name}) {
     
 
     if(!userNotes || userNotes.length===0)
-        return <p>No Notes Yet!!</p>
+        return <p style={{textAlign: "center"}}>No Notes Yet!!</p>
 
 
 

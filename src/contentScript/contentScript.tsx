@@ -25,10 +25,22 @@ const App: React.FC<{}> = () => {
 
     var currName = ''
 
+    // Status 
+    const [statusOpen, setStatusOpen]  = useState(false)
 
+    // Right Panel
+    const [rightSidePanelOpen, setRightSidePanel]  = useState(false)
+
+    var icons = $('._26lC3')
+
+    console.log(icons);
     var debug = false;
     var safetyDelayShort = 300;
+
     
+    // Info of user which opens on right side
+    var rightSidePanel = $('._2J8hu')
+
     // Waiting for User to log in and then inject the contentScript into the id app of whatsapp 
     // so that extension works only after login. Refered from some github repo!
     function onMainUiReady()
@@ -40,6 +52,16 @@ const App: React.FC<{}> = () => {
             {
                 if (debug) console.info("WAT: Found main UI, will notify main UI ready event directly");
                 document.querySelector("#app .two").appendChild(root)
+                rightSidePanel = $('._2J8hu')
+                icons = $('._26lC3')
+                
+                // if(rightSidePanel.length==0){
+                //     setRightSidePanel(false)
+                // }
+                // else{
+                //     setRightSidePanel(true)
+                // }
+
             }
             else
             {
@@ -76,6 +98,7 @@ const App: React.FC<{}> = () => {
     }
     
     window.addEventListener ("load", onMainUiReady, false)
+   
     
 
     // Suggestion messages displayed when any chat is opened
@@ -90,23 +113,12 @@ const App: React.FC<{}> = () => {
         }
     };
     
-    
-
-    useEffect(() => {
-        console.log("Main Chat changed");
-        if(notesOpen){
-            notesPanelOpenCss()
-        }
-            
-    }, [name])
-
 
     // Main chats which appears on center
     var mainChats = document.getElementById('main');
 
-    // Info of user which opens on right side
-    var rightSidePanel = $('._2J8hu')
-
+    
+    
     const notesPanelOpenCss = () => {
         $('#side').css(
             'width', '80%'
@@ -120,6 +132,9 @@ const App: React.FC<{}> = () => {
         )
         $('.ldL67 .zaKsw').css(
             'width', '70%'
+        )
+        $('.notes-btn').css(
+            'left', '82.5%'
         )
     }
 
@@ -135,14 +150,17 @@ const App: React.FC<{}> = () => {
         )
         $('.ldL67 .zaKsw').css(
             'width', '100%'
-        ) 
+        )
+        $('.notes-btn').css(
+            'left', '85%'
+        )
     }
 
 
     // Changing Whatsapp style when Notes are opened
     const changeStyleofWAUI = () => {
         
-        if(!notesOpen && rightSidePanel.length ==0){
+        if(!notesOpen && rightSidePanel.length==0){
             notesPanelOpenCss()
         }
         else{
@@ -176,16 +194,85 @@ const App: React.FC<{}> = () => {
         retrieveName()
     }
 
+    useEffect(() => {
+        console.log("Main Chat changed");
+        if(notesOpen){
+            notesPanelOpenCss()
+        }
+        
+    }, [name])
+
+
+
+
+    var contactInfo = $('._24-Ff')
+    var serachIcon = icons[3];
+
+
+    const closeRightPanel = () => {
+        var closeButton = $('[data-icon = "x"]')
+        closeButton[0].addEventListener("click", function(e){
+            console.log("Close CLicked");
+            setNotesOpen(false)
+            notesPanelCloseCss() 
+        })
+    }
+
+
+
+    if(icons.length!=0 && serachIcon!=undefined){
+        serachIcon.addEventListener("click", function(e){
+            console.log("Clicked")
+            notesPanelCloseCss()
+
+            setTimeout(function(){
+                closeRightPanel()
+            },100)
+        })
+        
+    }
+
+    if(contactInfo.length!=0){
+        contactInfo[0].addEventListener("click", function(e){
+            console.log("Clicked")
+            notesPanelCloseCss()
+
+
+            setTimeout(function(){
+                closeRightPanel()
+            },100)
+
+
+        })
+        
+    }
     
-    console.log("Main", notesOpen);
-
-
+    
+    
+    
+    // if(status.length!=0){
+    //     status[0].addEventListener("click", function(e){
+    //         console.log("Status icon CLicked");
+            
+    //         setTimeout(function () {
+    //             statusClose = $('[data-icon = "x-viewer"]')
+    //             console.log("status close", statusClose);
+    //             statusClose[0].addEventListener("click", function(e){
+    //                 console.log("Close CLicked");
+    //                 setStatusOpen(false);
+    //             })
+    //         }, 100);
+    //         setStatusOpen(true);  
+    //     })
+    // }
+    
+    
     return (
         
             <>  
                 
                 {/* Notes button on the main UI */}
-                <button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
+                < button onClick={notesMaker} className= "btn btn-primary notes-btn"> Notes 
                 </button>
                 
 
@@ -193,7 +280,7 @@ const App: React.FC<{}> = () => {
             
                 {/* If notesOpen state is true and rightSidePanel i.e. info panel is not opened
                 and mainChats window is currently open then only show notes    */}
-                {notesOpen && mainChats && name && rightSidePanel.length ==0 &&(
+                {notesOpen && mainChats && name &&(
                     <NotesProvider>
                         <div className="container">
                             <div className="editor">
@@ -209,7 +296,7 @@ const App: React.FC<{}> = () => {
                 {/* if mainChats window is not opened and notesOpen is true 
                 then it will show Please select a chat!!  */}
                 {notesOpen && mainChats === null && (<div className="container">
-                    <h2>Please select a chat!!</h2>
+                    <h2 style={{textAlign: "center"}}> Please select a chat!!</h2>
                 </div>)}
 
 

@@ -15,6 +15,7 @@ function SuggestionMessage() {
     
     if(!footer)
         return;
+
     footer.css(
         "padding", "33px 0 0 0"
     )
@@ -46,24 +47,30 @@ function SuggestionMessage() {
 	//Edit Button
     var editButton = document.getElementById("smart_reply_edit_button");
 	if(editButton){
-		console.log("Edit",editButton);
+		// console.log("Edit",editButton);
 		$('#reply_div').append(editButton)
 	}
 	else{
 		$('#reply_div').append('<button id="smart_reply_edit_button">Edit</button>')
 	}
 
-
+	
 	// Edit Button event
-	document.getElementById("smart_reply_edit_button").addEventListener("click", function(event) {
-        setEdit(true)
-    });
+	if(document.getElementById("smart_reply_edit_button")!=null){
+		document.getElementById("smart_reply_edit_button").addEventListener("click", function(event) {
+			setEdit(true)
+		});
+	}
+	
 
 	// Message which are displayed above the chat when clicked will send the clicked message
-    document.getElementById("reply_div").addEventListener("click", function(event) {
-        var message = (event.target as HTMLInputElement).value
-        sendMessage(message);
-    });
+	if(document.getElementById("reply_div")!=null){
+		document.getElementById("reply_div").addEventListener("click", function(event) {
+			var message = (event.target as HTMLInputElement).value
+			sendMessage(message);
+		});
+	}
+    
     
     
 

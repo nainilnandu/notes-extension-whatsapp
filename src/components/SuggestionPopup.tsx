@@ -22,7 +22,7 @@ function SuggestionPopup() {
             setEdit(false)
             sendMessage(event.target.innerText);       
         }
-        console.log(messages)
+        // console.log(messages)
     }
 
     const handleAdd = (e) =>{
