@@ -150,15 +150,20 @@ header {
     top: 0;
     z-index: 1;
     width: calc(100% - 80px);
+    white-space: nowrap;
+    overflow: scroll;
+
  }
 
 #smart_reply_edit_button{
     position: absolute;
     width: 80px;
-    right: 8px;
+    right: 0px;
     top: 12px;
     color: var(--message-primary);
+    font-weight: 600;
     font-size: 12px !important
+    
 }
 
 .reply_click{

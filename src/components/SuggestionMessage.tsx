@@ -38,7 +38,7 @@ function SuggestionMessage() {
 	$.each(messages, function(i, p) {
         var ps = p.message;
         if(p.message.length > 47)
-        	ps = p.substring(0,47)+"...";
+        	ps = p.message.substring(0,47)+"...";
 		
         $('#reply_div').append('<button class="reply_click" value="'+p.message+'">'+ps+'</button>');
     });
@@ -48,10 +48,10 @@ function SuggestionMessage() {
     var editButton = document.getElementById("smart_reply_edit_button");
 	if(editButton){
 		// console.log("Edit",editButton);
-		$('#reply_div').append(editButton)
+		footer.append(editButton)
 	}
 	else{
-		$('#reply_div').append('<button id="smart_reply_edit_button">Edit</button>')
+		footer.append('<button id="smart_reply_edit_button">Edit</button>')
 	}
 
 	
